@@ -16,7 +16,7 @@
 
 // 1. 윈도우 메시지 처리 함수 (Window Procedure)
 // 사용자 입력(키보드, 마우스)이나 시스템 이벤트를 처리하는 핵심 콜백 함수임.
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) // 윈도우 프로시저
 {
     switch (message)
     {
@@ -67,8 +67,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     // --- (C) 메시지 루프 ---
     // OS로부터 전달되는 메시지를 지속적으로 감시하고 처리함.
     // DirectX 연동 시에는 GetMessage 대신 PeekMessage를 사용하여 무한 루프를 돌림.
-    MSG msg;
-    while (GetMessage(&msg, nullptr, 0, 0))
+    // PeekMessage -> 상시 확인 (메시지가 있으면 계속 Loop, 메시지 없으면 Loop 탈출)
+    MSG msg; // 메시지 큐
+    while (GetMessage(&msg, nullptr, 0, 0)) // 메시지 Loop
     {
         TranslateMessage(&msg); // 키보드 입력 메시지 변환
         DispatchMessage(&msg);  // WndProc으로 메시지 전달
